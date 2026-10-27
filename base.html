@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Waste2Value{% endblock %} · Waste2Value</title><meta name="description" content="A marketplace for recovered materials and circular supply chains.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head><body>
+<header class="header"><a class="brand" href="{{ url_for('index') }}"><span class="mark">w<span>2</span>v</span><span>Waste<span class="accent">2</span>Value<small>RECOVER · RECONNECT · REUSE</small></span></a>
+<button class="menu" onclick="document.body.classList.toggle('open')" aria-label="Toggle menu">☰</button><nav>
+<a href="{{ url_for('marketplace') }}">Marketplace</a>{% if current_user %}<a href="{{ url_for('dashboard') }}">Dashboard</a><a href="{{ url_for('requests_page') }}">Requests</a>{% if current_role=='admin' %}<a class="navbtn" href="{{ url_for('new_listing') }}">+ Add material</a>{% endif %}<a href="{{ url_for('logout') }}">Sign out</a>{% else %}<a href="{{ url_for('login') }}">Sign in</a><a class="navbtn" href="{{ url_for('login') }}">Open workspace ↗</a>{% endif %}</nav></header>
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flashwrap">{% for cat,msg in messages %}<div class="flash {{ cat }}">{{ msg }}<button onclick="this.parentElement.remove()">×</button></div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer><a class="brand" href="{{ url_for('index') }}"><span class="mark">w<span>2</span>v</span><span>Waste<span class="accent">2</span>Value<small>MAKING MATERIALS MATTER</small></span></a><p>A better next chapter for recovered materials.</p><small>Prototype · Sample data is illustrative</small></footer></body></html>
